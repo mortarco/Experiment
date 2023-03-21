@@ -16,7 +16,11 @@
 
 package com.denasu.sample.jetty.service;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Component;
+
+import com.denasu.sample.db.DBAccessor;
 
 @Component
 public class HelloWorldService {
@@ -27,8 +31,15 @@ public class HelloWorldService {
 		return "Test Message";
 	}
 
-	public String getFaultMessage(String id, String password)
+	public String getFaultMessage(String id, String password, String userInput) throws SQLException
 	{
+		// SQL injection
+		DBAccessor accessor = new DBAccessor();
+		accessor.open("localhost", "3306", "test", id, password);
+		accessor.executeSQL("select foo from t where name=" + userInput);
+		
+		// not close
+		
 		// Buffer overflow
 		String[] fault = new String[] {"1"};
 		return fault[5];

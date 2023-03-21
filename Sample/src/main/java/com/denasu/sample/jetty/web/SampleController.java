@@ -16,9 +16,12 @@
 
 package com.denasu.sample.jetty.web;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.denasu.sample.jetty.service.HelloWorldService;
@@ -26,7 +29,8 @@ import com.denasu.sample.jetty.service.HelloWorldService;
 @Controller
 public class SampleController {
 
-	String secret = "hardcoded-secret for test";
+	String id = "hardcoded ID for test";
+	String password = "hardcoded PW for test";
 
 	@Autowired
 	private HelloWorldService helloWorldService;
@@ -39,7 +43,7 @@ public class SampleController {
 
 	@RequestMapping("/fault")
 	@ResponseBody
-	public String fault() {
-		return this.helloWorldService.getFaultMessage("user", secret);
+	public String fault(@RequestParam("user_input") String userInput) throws SQLException {
+		return this.helloWorldService.getFaultMessage(id, password, userInput);
 	}
 }
