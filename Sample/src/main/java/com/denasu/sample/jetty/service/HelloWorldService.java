@@ -37,6 +37,7 @@ public class HelloWorldService {
 		DBAccessor accessor = new DBAccessor();
 		accessor.open("localhost", "3306", "test", id, password);
 		accessor.executeSQL("select foo from t where name=" + userInput);
+		accessor.executeSQL("delete from t where name=" + userInput);
 		
 		// not close
 		
