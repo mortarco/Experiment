@@ -43,7 +43,7 @@ public class SampleController {
 
 	@RequestMapping("/fault")
 	@ResponseBody
-	public String fault(@RequestParam("user_input") String userInput) throws SQLException {
-		return this.helloWorldService.getFaultMessage(id, password, userInput);
+	public String fault(@RequestParam("user_input") String userInput, @RequestParam("user_input") String userInput2) throws SQLException {
+		return this.helloWorldService.getFaultMessage(id, password, userInput2);
 	}
 }
