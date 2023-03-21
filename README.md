@@ -1,2 +1,4 @@
 # Experiment
-GitHub機能の実験用
+GitHubのセキュリティ上の脆弱性実験用。
+
+
