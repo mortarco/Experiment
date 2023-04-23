@@ -7,4 +7,6 @@ jobs:
   sbom:
     steps:
     - uses: anchore/sbom-action@v0.14.1
+      with:
+        path: ./
 
