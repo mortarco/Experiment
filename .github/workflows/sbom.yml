@@ -1,2 +1,9 @@
-- name: Anchore SBOM Action
-  uses: anchore/sbom-action@v0.14.1
+name: Anchore SBOM Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  steps:
+  - run: anchore/sbom-action@v0.14.1
+
