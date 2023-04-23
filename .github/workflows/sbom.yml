@@ -5,6 +5,7 @@ on:
 
 jobs:
   sbom:
+    runs-on: ubuntu-latest
     steps:
     - uses: anchore/sbom-action@v0.14.1
       with:
