@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  steps:
-  - run: anchore/sbom-action@v0.14.1
+  sbom:
+    steps:
+    - run: anchore/sbom-action@v0.14.1
 
