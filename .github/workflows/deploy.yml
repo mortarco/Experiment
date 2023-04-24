@@ -15,12 +15,13 @@ jobs:
           java-version: '17.0.4'
       - name: Build
         run: mvn clean install
+        working-directory: Sample
       - name: Upload jar
         if: always()
         uses: actions/upload-artifact@v1
         with: 
           name: package
-          path: repository/target/repository.jar
+          path: Sample/target/sample-1.0.0-SNAPSHOT.jar
       - name: Gather test results
         if: always()
         run: |
