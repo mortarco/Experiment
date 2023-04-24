@@ -1,0 +1,13 @@
+name: Anchore SBOM Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: anchore/sbom-action@v0.14.1
+      with:
+        path: ./
+
