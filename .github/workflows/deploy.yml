@@ -22,6 +22,14 @@ jobs:
         with: 
           name: package
           path: Sample/target/sample-1.0.0-SNAPSHOT.jar
+      - name: Test
+        if: always()
+        run: |
+          mvn clean \
+          test -Dmaven.test.failure.ignore=true \
+          site -DgenerateReports=false \
+          surefire-report:report
+        working-directory: Sample
       - name: Upload test resuls
         if: always()
         uses: actions/upload-artifact@v1
