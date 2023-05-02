@@ -28,7 +28,6 @@ public class SampleJettyApplication {
 
 	public static void main(String[] args) throws Exception {
 		// **R**un
-
 		SpringApplication.run(SampleJettyApplication.class, args);
 	}
 
