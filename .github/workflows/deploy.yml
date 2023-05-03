@@ -20,12 +20,6 @@ jobs:
           site -DgenerateReports=false
           surefire-report:report
         working-directory: Sample
-      - name: Upload package
-        if: always()
-        uses: actions/upload-artifact@v1
-        with: 
-          name: package
-          path: Sample/target/sample-1.0.0-SNAPSHOT.jar
       - name: Upload test resuls
         if: always()
         uses: actions/upload-artifact@v1
@@ -37,6 +31,21 @@ jobs:
         with:
           source: "Sample/target/sample-1.0.0-SNAPSHOT.jar"
           target: "Sample/docker/"
+      - name: Upload package
+        if: always()
+        uses: actions/upload-artifact@v3
+        with: 
+          name: package
+          path: Sample/docker/
+
+  DockerHub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download package
+        uses: actions/download-artifact@v3
+        with:
+          name: package
+          path: Sample/docker
       - name: Setup Docker
         uses: docker/setup-buildx-action@v1
       - name: login to DockerHub
