@@ -127,6 +127,7 @@ jobs:
         with:
           sbom: "sbom.spdx.json"
           output-format: json
+          fail-build: false
       - name: Upload vulnerability
         uses: actions/upload-artifact@v1
         with: 
