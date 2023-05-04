@@ -149,6 +149,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: DockerHub
     steps:
+      - name: Upload spdx
+        uses: aquasecurity/trivy-action@master
+        with:
+          format: 'spdx-json'
+          output: 'dependency-results.spdx.json'
+          image-ref: mortarco/experiment:latest
+      - name: Upload json
+        uses: actions/upload-artifact@v1
+        with: 
+          name: trivysbom
+          path: 'dependency-results.spdx.json'
       - name: Upload sbom
         uses: aquasecurity/trivy-action@master
         with:
@@ -189,9 +200,4 @@ jobs:
         with: 
           name: trivy
           path: 'trivy-results.json'
-      - name: Upload json
-        uses: actions/upload-artifact@v1
-        with: 
-          name: trivysbom
-          path: 'dependency-results.sbom.json'
-        
+       
