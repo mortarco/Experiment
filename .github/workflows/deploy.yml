@@ -128,8 +128,6 @@ jobs:
           sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           output-format: json
           fail-build: false
-      - run: echo ${{ steps.scan.outputs.json }}
-      - run: cat ${{ steps.scan.outputs.json }}
       - name: Upload vulnerability
         uses: actions/upload-artifact@v1
         with: 
