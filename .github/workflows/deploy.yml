@@ -53,14 +53,14 @@ jobs:
         uses: azure/login@v1.4.3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: 'Build and push image'
+      - name: ACR login
         uses: azure/docker-login@v1
         with:
           login-server: ${{ secrets.REGISTRY }}.azurecr.io
           username: ${{ secrets.SERVICE_PRINCIPAL }}
           password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
+          docker build . -t ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1　Sample/docker/
           docker push ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
       - name: Set AKS context
         id: set-context
