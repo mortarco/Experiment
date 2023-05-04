@@ -120,17 +120,19 @@ jobs:
         with:
           image: mortarco/experiment:latest
           format: spdx-json
-          output-file: "syft.spdx.json"
+          output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
       - name: Scan vulnerability
         uses: anchore/scan-action@v3
         id: scan
         with:
-          sbom: "sbom.spdx.json"
+          sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           output-format: json
           fail-build: false
+      - run: echo ${{ steps.scan.outputs.json }}
+      - run: cat ${{ steps.scan.outputs.json }}
       - name: Upload vulnerability
         uses: actions/upload-artifact@v1
         with: 
-          name: grype.json
+          name: grype
           path: ${{ steps.scan.outputs.json }}
         
