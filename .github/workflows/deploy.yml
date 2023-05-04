@@ -104,7 +104,7 @@ jobs:
           push: true
           tags: mortarco/experiment:latest
           
-  scan:
+  grype:
     runs-on: ubuntu-latest
     needs: DockerHub
     steps:
@@ -121,16 +121,67 @@ jobs:
           image: mortarco/experiment:latest
           format: spdx-json
           output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
-      - name: Scan vulnerability
+      - name: Scan SARIF
         uses: anchore/scan-action@v3
-        id: scan
+        id: scan_sarif
+        with:
+          sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
+          output-format: sarif
+          fail-build: false
+      - name: Upload SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.scan_sarif.outputs.sarif }
+      - name: Scan json
+        uses: anchore/scan-action@v3
+        id: scan_sbom
         with:
           sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           output-format: json
           fail-build: false
-      - name: Upload vulnerability
+      - name: Upload json
         uses: actions/upload-artifact@v1
         with: 
           name: grype
-          path: ${{ steps.scan.outputs.json }}
+          path: ${{ steps.scan_json.outputs.json }}
         
+  trivy:
+    runs-on: ubuntu-latest
+    needs: DockerHub
+    steps:
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v1
+      - name: login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Upload sbom
+        uses: aquasecurity/trivy-action@master
+        with:
+          format: 'github'
+          output: 'dependency-results.sbom.json'
+          image-ref: mortarco/experiment:latest
+          github-pat: ${{ secrets.GITHUB_TOKEN }}
+      - name: scan sarif
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: mortarco/experiment:latest
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: upload sarif
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+      - name: scan json
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: mortarco/experiment:latest
+          format: 'json'
+          output: 'trivy-results.json'
+      - name: Upload json
+        uses: actions/upload-artifact@v1
+        with: 
+          name: trivy
+          path: 'trivy-results.json'
+          
