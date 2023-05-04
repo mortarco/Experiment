@@ -47,6 +47,7 @@ jobs:
         with:
           name: package
           path: Sample/docker
+      - run: ls -la ./Sample/docker/
       - name: build image
         uses: azure/acr-build@v1
         with:
