@@ -16,7 +16,7 @@ spec:
       - name: experiment
         image: denasucontainer.azurecr.io/experiment:v1
         ports:
-          - containerPort: 80
+          - containerPort: 8080
   selector:
     matchLabels:
       app: experiment
