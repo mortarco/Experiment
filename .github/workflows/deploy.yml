@@ -47,23 +47,21 @@ jobs:
         with:
           name: package
           path: Sample/docker
-      - name: build image
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image:  experiment
-          folder: ./Sample/docker/
-          branch: main
-          tag: v1
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v1
       - name: Azure login
-        id: login
         uses: azure/login@v1.4.3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY }}.azurecr.io
+          username: ${{ secrets.SERVICE_PRINCIPAL }}
+          password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
+      - run: |
+          docker build . -t ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
+          docker push ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
