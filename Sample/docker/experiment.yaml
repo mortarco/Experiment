@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: experiment
+  labels:
+    app: experiment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: experiment
+      labels:
+        app: experiment
+    spec:
+      containers:
+      - name: experiment
+        image: denasucontainer.azurecr.io/experiment:v1
+        ports:
+          - containerPort: 80
+  selector:
+    matchLabels:
+      app: experiment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: experiment
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: experiment
