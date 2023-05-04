@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.SERVICE_PRINCIPAL }}
           password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1 Sample/docker/
+          docker build Sample/docker/ -t ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
           docker push ${{ secrets.REGISTRY }}.azurecr.io/experiment:v1
       - name: Set AKS context
         id: set-context
