@@ -83,7 +83,7 @@ jobs:
 
   DockerHub:
     runs-on: ubuntu-latest
-    needs: AKS
+    needs: build
     steps:
       - name: Download package
         uses: actions/download-artifact@v3
