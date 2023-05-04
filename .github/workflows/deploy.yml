@@ -47,7 +47,6 @@ jobs:
         with:
           name: package
           path: Sample/docker
-      - run: ls -la ./Sample/docker/
       - name: build image
         uses: azure/acr-build@v1
         with:
@@ -80,13 +79,13 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             experiment.yaml
+              ./Sample/docker/experiment.yaml
           images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/experiment:v1'
           pull-images: false
 
   DockerHub:
     runs-on: ubuntu-latest
-    needs: build
+    needs: AKS
     steps:
       - name: Download package
         uses: actions/download-artifact@v3
