@@ -137,7 +137,7 @@ jobs:
           sarif_file: ${{ steps.scan_sarif.outputs.sarif }}
       - name: Scan json
         uses: anchore/scan-action@v3
-        id: scan_sbom
+        id: scan_json
         with:
           sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           output-format: json
