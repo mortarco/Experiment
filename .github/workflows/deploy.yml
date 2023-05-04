@@ -155,6 +155,10 @@ jobs:
           format: 'spdx-json'
           output: 'dependency-results.spdx.json'
           image-ref: mortarco/experiment:latest
+        env:
+          TRIVY_AUTH_URL: https://registry.hub.docker.com
+          TRIVY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          TRIVY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Upload json
         uses: actions/upload-artifact@v1
         with: 
