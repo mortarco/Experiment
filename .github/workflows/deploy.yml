@@ -3,6 +3,9 @@ name: ci
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -189,4 +192,9 @@ jobs:
         with: 
           name: trivy
           path: 'trivy-results.json'
-          
+      - name: Upload json
+        uses: actions/upload-artifact@v1
+        with: 
+          name: trivysbom
+          path: 'dependency-results.sbom.json'
+        
