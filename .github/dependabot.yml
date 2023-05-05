@@ -5,8 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/Sample" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/Sample"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/Sample"
     schedule:
       interval: "weekly"
 
