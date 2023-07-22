@@ -19,6 +19,8 @@
 	</organization>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
+		<sonar.organization>mortarco</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
