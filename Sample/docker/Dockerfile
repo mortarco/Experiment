@@ -1,4 +1,4 @@
-FROM openjdk:17-buster
+FROM openjdk:21-buster
 COPY sample-1.0.0-SNAPSHOT.jar /app/sample-1.0.0-SNAPSHOT.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/sample-1.0.0-SNAPSHOT.jar"]
