@@ -12,6 +12,11 @@ public class DBAccessor {
 	{
 	}
 
+	public String tmp()
+	{
+		return null;
+	}
+	
 	public void open(String host, String port, String database, String user, String password)
 		throws SQLException
 	{
