@@ -79,7 +79,7 @@ public class DBAccessor {
 		throws SQLException
 	{
 		Statement st = _db.createStatement();
-		st.executeUpdate(sql);
+		st.executeUpdate(""/*sql*/);
 		st.close();
 	}
 }
