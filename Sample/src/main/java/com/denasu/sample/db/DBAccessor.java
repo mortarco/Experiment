@@ -8,8 +8,13 @@ public class DBAccessor {
 	String _user = null;
 	String _password = null;
 
+	//
+	// コンストラクタ
+	//
+	
 	public DBAccessor()
 	{
+		
 	}
 
 	public String tmp()
